@@ -400,11 +400,7 @@ def create_ms(
         dask.compute(write_pol)
 
     phase_dir_small = da.from_array(phase_dir, chunks=-1)
-    phase_arr = da.broadcast_to(
-        phase_dir_small,
-        (num_rows, 1, 2),
-        chunks=(row_chunks, 1, 2)
-    )
+    phase_arr = da.broadcast_to(phase_dir_small, (num_rows, 1, 2), chunks=(row_chunks, 1, 2))
 
     pntng_ds = {
         "TIME": (("row",), da.from_array(uvcoverage_data.times, chunks=row_chunks)),
